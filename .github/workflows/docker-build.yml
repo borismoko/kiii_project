@@ -32,10 +32,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
+          context: ./
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/spring-app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/kiii-project:latest
 
       - name: Verify Docker image
-        run: docker run -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/teamplayerapp:latest
+        run: docker run -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/kiii-project:latest
