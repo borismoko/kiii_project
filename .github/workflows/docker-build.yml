@@ -38,4 +38,4 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/spring-app:latest
 
       - name: Verify Docker image
-        run: docker run -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/teamplayerapp:latest
+        run: docker run -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/spring-app:latest
