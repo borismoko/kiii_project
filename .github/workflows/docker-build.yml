@@ -29,13 +29,13 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/spring-app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/kiii-project:latest
 
       - name: Verify Docker image
-        run: docker run -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/spring-app:latest
+        run: docker run -d -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/kiii-project:latest
