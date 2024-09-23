@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgres
+  name: postgres-statefulset
 spec:
   selector:
     matchLabels:
@@ -15,9 +15,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:13
-          ports:
-            - containerPort: 5432
+          image: postgres:latest
           env:
             - name: POSTGRES_USER
               valueFrom:
@@ -30,4 +28,33 @@ spec:
                   name: db-secret
                   key: password
             - name: POSTGRES_DB
-              value: basketball_players
+              valueFrom:
+                configMapKeyRef:
+                  name: kiii-project-config
+                  key: POSTGRES_DB
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-storage
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: postgres

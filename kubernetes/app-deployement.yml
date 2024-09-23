@@ -6,20 +6,23 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: spring-app
+      app: kiii-project
   template:
     metadata:
       labels:
-        app: spring-app
+        app: kiii-project
     spec:
       containers:
-        - name: spring-app
-          image: your-dockerhub-username/your-app-name
+        - name: kiii-project
+          image: borismokovski/kiii-project
           ports:
             - containerPort: 8080
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://postgres:5432/mydatabase
+              valueFrom:
+                configMapKeyRef:
+                  name: kiii-project-config
+                  key: SPRING_DATASOURCE_URL
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -27,6 +30,16 @@ spec:
                   key: username
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
-                secretKeyRef:
+                configMapKeyRef:
                   name: db-secret
                   key: password
+            - name: SPRING_JPA_SHOW_SQL
+              valueFrom:
+                configMapKeyRef:
+                  name: kiii-project-config
+                  key: SPRING_JPA_SHOW_SQL
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              valueFrom:
+                configMapKeyRef:
+                  name: kiii-project-config
+                  key: SPRING_JPA_HIBERNATE_DDL_AUTO
