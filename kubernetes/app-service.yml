@@ -1,6 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: postgres
+  namespace: kiii-project-namespace
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: kiii-project
   namespace: kiii-project-namespace
 spec:

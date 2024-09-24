@@ -4,7 +4,7 @@ metadata:
   name: kiii-project-config
   namespace: kiii-project-namespace
 data:
-  SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/basketball_players"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/basketball_players"
   SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
   SPRING_JPA_SHOW_SQL: "false"
-  POSTGRES_DB_NAME: "basketball_players"
+  POSTGRES_DB: "basketball_players"

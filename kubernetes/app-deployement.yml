@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-app
+  name: kiii-project
+  namespace: kiii-project-namespace
 spec:
   replicas: 1
   selector:
@@ -30,7 +31,7 @@ spec:
                   key: username
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
-                configMapKeyRef:
+                secretKeyRef:
                   name: db-secret
                   key: password
             - name: SPRING_JPA_SHOW_SQL

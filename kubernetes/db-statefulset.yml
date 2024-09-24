@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgres-statefulset
+  name: postgres
+  namespace: kiii-project-namespace
 spec:
   selector:
     matchLabels:
@@ -50,7 +51,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service
+  name: postgres
+  namespace: kiii-project-namespace
 spec:
   type: ClusterIP
   ports:
